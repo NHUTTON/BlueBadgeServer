@@ -1,6 +1,9 @@
-const Express = require('express');
+const Express = require("express");
 const app = Express();
- 
-app.listen(3000, () => {
-console.log(`[Server]: App is listening on 3000.`);
+``
+app.use("/test", (req, res) => {
+  res.send("This is a message from the test endpoint on the server!");
+});
+app.listen(process.env.PORT, () => {
+  console.log(`[Server]: App is listening on ${process.env.PORT}.`);
 });

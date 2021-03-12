@@ -3,9 +3,9 @@ const Express = require("express");
 const app = Express();
 const dbConnection = require('./db');
  
-// app.use('/test', (req, res) => {
-//     res.send('This is a message from the test endpoint on the server!')
-// });
+app.use('/test', (req, res) => {
+    res.send('This is a message from the test endpoint on the server!')
+});
 
 dbConnection.authenticate()
     .then(() => dbConnection.sync())

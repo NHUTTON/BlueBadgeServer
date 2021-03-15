@@ -10,19 +10,20 @@ router.get('/test', validateJWT, (req,res) => {
 
 router.post('/create', validateJWT, async (req, res) => {
     const { title, date, genre, company } = req.body.game;
+    const {id} = req.user;
     const gameEntry = {
          title,
          date,
          genre,
-         company
+         company,
+                      owner: id
        }
        try {
-         const newGame = await GamesModel.create(gameEntry);
+        const newGame = await GamesModel.create(gameEntry);
         res.status(200).json(newGame);
        } catch (err) {
          res.status(500).json({ error: err });
        }
-       GamesModel.create(gameEntry)
 });
 
 

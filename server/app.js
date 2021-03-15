@@ -7,6 +7,12 @@ const dbConnection = require('./db');
 //     res.send('This is a message from the test endpoint on the server!')
 // });
 
+app.use(Express.json());
+
+const controllers = require('./Controllers');
+app.use('/user', controllers.userController);
+
+
 dbConnection.authenticate()
     .then(() => dbConnection.sync())
     .then(() => {

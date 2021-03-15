@@ -2,22 +2,19 @@ require('dotenv').config();
 const Express = require("express");
 const app = Express();
 const dbConnection = require('./db');
-const controllers = require('./Controllers');
-
+const controllers = require('./Controllers') 
  
-// app.use('/test', (req, res) => {
-//     res.send('This is a message from the test endpoint on the server!')
-// });
-
 app.use(Express.json());
 
-// const list = require('./Controllers/listController');
-
+// make sure user contoller information is above validation 
+app.use(require("./middleware/validate-jwt"));     
 app.use('/user', controllers.userController);
-
+app.use('/games', controllers.gamesController)
 app.use('/list', controllers.listController);
 
-// app.use('/list', list);
+
+
+
 
 
 dbConnection.authenticate()
@@ -30,3 +27,4 @@ dbConnection.authenticate()
     .catch((err) => {
         console.log(`[Server]: Server Crashed. Error = ${err}`);
     });
+

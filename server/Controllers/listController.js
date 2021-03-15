@@ -2,10 +2,11 @@ const router = require("express").Router();
 const User = require("../Models/userModel");
 const List = require("../Models/listModel");
 const Game = require("../Models/gamesModel");
+let validateJWT = require("../middleware/validate-jwt");
 
 /**************** GET LISTS BY USER ID ****************/
 
-router.get("/", (req, res) => {
+router.get("/", validateJWT, (req, res) => {
   List.findAll({
     where: { userId: req.user.id },
     order: [["listName", "ASC"]],
@@ -16,7 +17,7 @@ router.get("/", (req, res) => {
 
 /**************** GET LIST ITEMS BY LIST ID ****************/
 
-router.get("/:listId", (req, res) => {
+router.get("/:listId", validateJWT, (req, res) => {
   Game.findAll({
     where: { listId: req.params.listId },
     order: [["sortID", "ASC"]],
@@ -27,7 +28,7 @@ router.get("/:listId", (req, res) => {
 
 /**************** UPDATE LISTS ****************/
 
-router.put("/update/:id", (req, res) => {
+router.put("/update/:id", validateJWT, (req, res) => {
   const updateList = {
     listName: req.body.list.title,
   };
@@ -41,7 +42,7 @@ router.put("/update/:id", (req, res) => {
 
 /**************** CREATE LISTS ****************/
 
-router.post("/add", (req, res) => {
+router.post("/add", validateJWT, (req, res) => {
   User.findOne({ where: { id: req.user.id } })
     .then((user) => {
       List.create({

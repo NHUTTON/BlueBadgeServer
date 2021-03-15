@@ -1,12 +1,11 @@
-const sequelize = require("../db");
+const { DataTypes } = require("sequelize");
+const db = require("../db");
 
-module.exports = (sequelize, DataTypes) => {
-  const List = sequelize.define("list", {
-    listName: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-  });
-  return List;
-};
+const List = db.define("list", {
+  listName: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+});
 
+module.exports = List;

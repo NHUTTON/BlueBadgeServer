@@ -1,10 +1,20 @@
 const Express = require("express");
 const app = Express();
-     
-app.use('/test', (req, res) => {
-   res.send('This is a message from the test endpoint on the server!')
-});
+const port = process.env.PORT || 5002
+const dbConnection = require("./db");
+
+const controllers = require('./Controllers') 
+
+app.use(require("./middleware/validate-jwt"));     
+app.use('/games', controllers.gamesController)
    
-app.listen(process.env.PORT, () => {
- console.log(`[Server]: App is listening on ${process.env.PORT}.`);
-});
+dbConnection.authenticate()
+.then(() => dbConnection.sync())
+.then(() => {
+    app.listen(port, () => {
+     console.log(`[Server]: App is listening on ${port}.`);
+    });
+ })
+  .catch((err) => {
+    console.log(`[Server]: Server crashed. Error = ${err}`);
+  });

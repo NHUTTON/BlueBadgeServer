@@ -1,20 +1,56 @@
 const router = require("express").Router();
-const User = require("../db").import("../Models/userModel");
-const List = require("../db").import("../Models/listModel");
-const Game = require('../db').import('../Models/gamesModel');
+const User = require("../Models/userModel");
+const List = require("../Models/listModel");
+const Game = require("../Models/gamesModel");
 
 /**************** GET LISTS BY USER ID ****************/
 
 router.get("/", (req, res) => {
-  List.findAll({ where: { userId: req.user.id }, order: [["listName", "ASC"]] })
+  List.findAll({
+    where: { userId: req.user.id },
+    order: [["listName", "ASC"]],
+  })
     .then((list) => res.status(200).json(list))
     .catch((err) => res.status(500).json({ error: err }));
 });
 
-/**************** GET LIST ITEMS BY USER ID ****************/
+/**************** GET LIST ITEMS BY LIST ID ****************/
 
 router.get("/:listId", (req, res) => {
-    Item.findAll({ where: { listId: req.params.listId }, order: [["sortID", "ASC"]] })
-      .then((items) => res.status(200).json(items))
-      .catch((err) => res.status(500).json({ error: err }));
-  }); 
+  Game.findAll({
+    where: { listId: req.params.listId },
+    order: [["sortID", "ASC"]],
+  })
+    .then((games) => res.status(200).json(games))
+    .catch((err) => res.status(500).json({ error: err }));
+});
+
+/**************** UPDATE LISTS ****************/
+
+router.put("/update/:id", (req, res) => {
+  const updateList = {
+    listName: req.body.list.title,
+  };
+
+  const query = { where: { id: req.params.id, userId: req.user.id } };
+
+  List.update(updateList, query)
+    .then((list) => res.status(200).json(list))
+    .catch((err) => res.status(500).json({ error: err }));
+});
+
+/**************** CREATE LISTS ****************/
+
+router.post("/add", (req, res) => {
+  User.findOne({ where: { id: req.user.id } })
+    .then((user) => {
+      List.create({
+        listName: req.body.list.title,
+        userId: user.id,
+      });
+    })
+    .then((list) => res.status(200).json(list))
+    .catch((err) => res.status(500).json({ error: err }));
+});
+
+module.exports = router;

@@ -1,5 +1,7 @@
-const GamesModel = require('./gamesModel')
-  
+const GamesModel = require('./gamesModel') 
+const UserModel = require('./userModel');
+
 module.exports = {
-GamesModel 
+    UserModel,
+    GamesModel 
 };

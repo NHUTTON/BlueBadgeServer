@@ -13,7 +13,7 @@ app.use(Express.json());
 app.use('/user', controllers.userController);
 app.use(require("./middleware/validate-jwt"));     
 app.use('/games', controllers.gamesController);
-
+app.use('/list', controllers.listController);
 
 
 dbConnection.authenticate()

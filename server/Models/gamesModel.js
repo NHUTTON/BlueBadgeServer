@@ -14,7 +14,7 @@ const Games = db.define("game", {
         type: DataTypes.STRING,
         allowNull: false
     },
-    company: {
+    platform: {
         type: DataTypes.STRING,
         allowNull: false
     },

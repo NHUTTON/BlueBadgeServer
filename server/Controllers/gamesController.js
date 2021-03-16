@@ -16,7 +16,7 @@ router.post('/create', validateJWT, async (req, res) => {
          date,
          genre,
          company,
-                      owner: id
+        owner: id
        }
        try {
         const newGame = await GamesModel.create(gameEntry);

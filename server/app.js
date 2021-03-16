@@ -7,9 +7,9 @@ const controllers = require('./Controllers')
 app.use(Express.json());
 
 // make sure user contoller information is above validation 
-app.use(require("./middleware/validate-jwt"));     
 app.use('/user', controllers.userController);
-app.use('/games', controllers.gamesController)
+app.use(require("./middleware/validate-jwt"));     
+app.use('/games', controllers.gamesController);
 app.use('/list', controllers.listController);
 
 

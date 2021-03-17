@@ -9,9 +9,10 @@ router.get('/test', validateJWT, (req,res) => {
 
 
 router.post('/create', validateJWT, async (req, res) => {
-    const { title, date, genre, platform } = req.body.game;
+    const { image, title, date, genre, platform } = req.body.game;
     const {id} = req.user;
     const gameEntry = {
+                    image,
          title,
          date,
          genre,

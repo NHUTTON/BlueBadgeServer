@@ -2,6 +2,10 @@ const { DataTypes } = require("sequelize");
 const db = require("../db");
 
 const Games = db.define("game", {
+    image: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     title: {
         type: DataTypes.STRING,
         allowNull: false
@@ -11,11 +15,11 @@ const Games = db.define("game", {
         allowNull: false,
     },
     genre: {
-        type: DataTypes.STRING,
+        type: DataTypes.ARRAY(DataTypes.STRING),
         allowNull: false
     },
     platform: {
-        type: DataTypes.STRING,
+        type: DataTypes.ARRAY(DataTypes.STRING),
         allowNull: false
     },
     owner: {

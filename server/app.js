@@ -3,6 +3,9 @@ const Express = require("express");
 const app = Express();
 const dbConnection = require('./db');
 const controllers = require('./Controllers') 
+
+const middleware = require('./middleware');
+app.use(middleware.CORS);
  
 app.use(Express.json());
 
@@ -11,10 +14,6 @@ app.use('/user', controllers.userController);
 app.use(require("./middleware/validate-jwt"));     
 app.use('/games', controllers.gamesController);
 app.use('/list', controllers.listController);
-
-
-
-
 
 
 dbConnection.authenticate()

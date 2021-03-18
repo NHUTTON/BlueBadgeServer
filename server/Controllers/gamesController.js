@@ -12,12 +12,12 @@ router.post('/create', validateJWT, async (req, res) => {
     const { image, title, date, genre, platform } = req.body.game;
     const {id} = req.user;
     const gameEntry = {
-                    image,
+         image,
          title,
          date,
          genre,
          platform,
-                      owner: id
+        owner: id
        }
        try {
         const newGame = await GamesModel.create(gameEntry);

@@ -27,6 +27,28 @@ router.post('/create', validateJWT, async (req, res) => {
        }
 });
 
+/*
+
+Get Games by User
+
+*/
+
+router.get("/mine", validateJWT, async (req,res) => {
+    let {id} = req.user;
+    try {
+        const userGames = await GamesModel.findAll({
+            where: {
+                owner: id
+            }
+        });
+        res.status(200).json(userGames);
+    } catch (err) {
+        res.status(500).json({error: err});
+    }
+});
+
+
+// DELETE Games
 
 router.delete("/delete/:id", validateJWT, async (req, res) => {
     const ownerId = req.user.id;

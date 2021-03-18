@@ -14,9 +14,6 @@ app.use('/list', controllers.listController);
 
 
 
-
-
-
 dbConnection.authenticate()
     .then(() => dbConnection.sync())
     .then(() => {

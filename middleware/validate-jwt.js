@@ -1,38 +1,30 @@
 const jwt = require("jsonwebtoken");
 const {UserModel} = require('../models');
+/*
+this is the validation that is required to pass throught to access the "protected areas" of our database. ie: login info/user posts/games list etc..
 
+we require this in our app.js by moving it first in line aboveg our games and list endpoint show on the right side of my screen.
+*/
 const validateJWT = async (req, res, next) => {
-    if (req.method == "OPTIONS") { //checking method request to see if it comes as OPTIONS instead of POST, GET, etc. part of preflighted request
-        next(); //if preflight request, pass it the next parameter
-    } else if (req.headers.authorization && req.headers.authorization.includes("Bearer")) { //check header of incoming reuest and that string includes the word Bearer
-        const {authorization} = req.headers; //object deconstruction to pull vlaue of authorization header
-        // console.log("authorization-->", authorization);
+    if (req.method == "OPTIONS") { 
+        next(); 
+    } else if (req.headers.authorization && req.headers.authorization.includes("Bearer")) {
+        const {authorization} = req.headers; 
         const payload = authorization  
-            /*
-                verify(): first parameter is token, second is the JWT_SECRET
-            */
-            ? jwt.verify( //ternary that verifies if authorization contains truthy value, if not then stores undef in payload var
-                /*
-                    if token includes Bearer, extrapolate and return just the token from string
-                */
-                authorization.includes("Bearer")  
+      
+            ? jwt.verify( 
+                authorization.includes("Bearer")   //<------this is requiring the use of Bearer in our session token ad a secondary check for additional secuirty
                 ? authorization.split(" ")[1]
                 : authorization,
                 process.env.JWT_SECRET,
             )
             : undefined;
     
-            // console.log("payload -->", payload);
     
-            if (payload) { //if payload is truthy, findOne to look for user that matches ID
+            if (payload) {
                 let foundUser = await UserModel.findOne({where: {id: payload.id}});
-                // console.log("foundUser -->", foundUser);
-    
-                /*
-                    if a user is found, store in foundUser
-                */
                 if (foundUser) { 
-                    // console.log("request -->", req);
+         
                     req.user = foundUser;
                     next();
                 } else {

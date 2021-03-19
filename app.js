@@ -4,9 +4,9 @@ const app = Express();
 const dbConnection = require('./db');
 const controllers = require('./Controllers') 
 
-const middleware = require('./middleware');
+const middleware = require('./middleware/index');
 app.use(middleware.CORS);
- 
+
 app.use(Express.json());
 
 // make sure user contoller information is above validation 

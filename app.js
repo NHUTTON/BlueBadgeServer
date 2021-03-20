@@ -9,7 +9,7 @@ app.use(middleware.CORS);
 
 app.use(Express.json());
 
-const controllers = require('./controllers') 
+const controllers = require('./Controllers') 
 
 app.use('/user', controllers.userController);
 app.use('/games', controllers.gamesController);

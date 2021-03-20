@@ -1,4 +1,5 @@
 require('dotenv').config();
+
 const Express = require("express");
 const app = Express();
 const dbConnection = require('./db.js');
@@ -7,11 +8,10 @@ const middleware = require('./middleware');
 app.use(middleware.CORS);
 
 app.use(Express.json());
+
 const controllers = require('./controllers') 
 
-// make sure user contoller information is above validation 
 app.use('/user', controllers.userController);
-// app.use(require("./middleware/validate-jwt"));  //<-----here is where we are requiring our application to use our validate-jwt   
 app.use('/games', controllers.gamesController);
 
 dbConnection.authenticate()

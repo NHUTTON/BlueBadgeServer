@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const UserModel = require('../models/userModel');
+const {UserModel} = require('../models');
 /*
 this is the validation that is required to pass throught to access the "protected areas" of our database. ie: login info/user posts/games list etc..
 

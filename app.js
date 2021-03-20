@@ -13,9 +13,6 @@ app.use(Express.json());
 app.use('/user', controllers.userController);
 app.use(require("./middleware/validate-jwt"));  //<-----here is where we are requiring our application to use our validate-jwt   
 app.use('/games', controllers.gamesController);
-app.use('/list', controllers.listController);
-
-
 
 dbConnection.authenticate()
     .then(() => dbConnection.sync())

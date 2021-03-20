@@ -1,7 +1,7 @@
 const Express = require('express');
 const router = Express.Router();
 let validateJWT = require("../middleware/validate-jwt");
-const {GamesModel} = require('../Models')
+const {GamesModel} = require('../models')
 
 router.get('/test', validateJWT, (req,res) => {
     res.send('this is a test route');

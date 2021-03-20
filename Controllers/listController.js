@@ -1,8 +1,8 @@
 const router = require("express").Router();
 let validateJWT = require("../middleware/validate-jwt");
-const User = require("../Models/userModel");
-const List = require("../Models/listModel");
-const Game = require("../Models/gamesModel");
+const User = require("../models/userModel");
+const List = require("../models/listModel");
+const Game = require("../models/gamesModel");
 
 /**************** GET LISTS BY USER ID ****************/
 

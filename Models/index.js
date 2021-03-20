@@ -1,4 +1,4 @@
-const GamesModel = require('./gamesModel') 
+const GamesModel = require('./games') 
 const UserModel = require('./user');
 
 module.exports = {

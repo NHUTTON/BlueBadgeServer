@@ -7,7 +7,7 @@ const middleware = require('./middleware');
 app.use(middleware.CORS);
 
 app.use(Express.json());
-const controllers = require('./Controllers') 
+const controllers = require('./controllers') 
 
 // make sure user contoller information is above validation 
 app.use('/user', controllers.userController);

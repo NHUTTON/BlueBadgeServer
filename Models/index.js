@@ -1,5 +1,5 @@
 const GamesModel = require('./gamesModel') 
-const UserModel = require('./userModel');
+const UserModel = require('./user');
 
 module.exports = {
     UserModel,

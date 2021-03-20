@@ -1,8 +1,8 @@
 require('dotenv').config();
 const Express = require("express");
 const app = Express();
-const dbConnection = require('./db');
-const middleware = require('./middleware/index');
+const dbConnection = require('./db.js');
+const middleware = require('./middleware');
 
 app.use(middleware.CORS);
 
